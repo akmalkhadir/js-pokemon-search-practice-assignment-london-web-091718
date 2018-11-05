@@ -1,5 +1,6 @@
 const pokeList = document.querySelector('#pokemon-container')
 const pokeForm = document.querySelector('#pokemon-search-form')
+
 let pokemonData
 
 // Create a single pokemon DOM element
@@ -11,7 +12,7 @@ const addPokemon = pokemon => {
     <h1 class="center-text">${pokemon.name}</h1>
     <div style="width:239px;margin:auto">
       <div style="width:96px;margin:auto">
-        <img src="${pokemon.sprites.front}">
+        <img id="${pokemon.id}" src="${pokemon.sprites.front}">
       </div>
     </div>
   </div>
@@ -38,7 +39,7 @@ const fuzzySearch = term => {
 // Add event listener to Search Form
 pokeForm.addEventListener("input", event => {
   pokeList.innerHTML = ``
-  
+
   let term = event.target.value
   searchedPokemonData = fuzzySearch(term)
 
@@ -48,3 +49,20 @@ pokeForm.addEventListener("input", event => {
     return (searchedPokemons = addPokemons(searchedPokemonData))
   }
 });
+
+// Click event listener to flip image
+
+document.querySelector('#pokemon-container').addEventListener("click", event => {
+  console.log(event)
+  console.log(event.target)
+  clicked = event.target
+
+  if (clicked instanceof HTMLImageElement) {
+    let thePokemon = pokemonData.find(pokemon => pokemon.id == clicked.id)
+    if (clicked.src === thePokemon.sprites.front) {
+      clicked.src = thePokemon.sprites.back
+    } else {
+      clicked.src = thePokemon.sprites.front
+    }
+  }
+})
