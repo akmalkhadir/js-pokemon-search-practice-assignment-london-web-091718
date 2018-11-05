@@ -44,3 +44,10 @@ input:focus {
 .flip-image {
   color: #2d72fc;
 }
+
+.pokemon-frame {
+  width: 230px;
+  margin: 10px;
+  background: #fecd2f;
+  color: #2d72fc
+}
