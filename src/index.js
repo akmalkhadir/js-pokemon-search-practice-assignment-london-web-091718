@@ -1,12 +1,8 @@
 const pokeList = document.querySelector('#pokemon-container')
+const pokeForm = document.querySelector('#pokemon-search-form')
+let pokemonData
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log(POKEMON)
-  //YOUR CODE HERE
-})
-
-
-// Create a single pokemon element
+// Create a single pokemon DOM element
 const addPokemon = pokemon => {
   const singlePokemonBox = document.createElement('div')
   singlePokemonBox.setAttribute("class", "pokemon-container")
@@ -28,4 +24,27 @@ const addPokemons = pokemons => pokemons.forEach(pokemon => addPokemon(pokemon))
 
 // Get & create all Pokemons
 getPokemons()
-.then(pokemons => addPokemons(pokemons))
+.then(pokemons => {
+  pokemonData = pokemons
+  addPokemons(pokemons)
+})
+
+// Form search function
+// Fuzzy Search
+const fuzzySearch = term => {
+  return pokemonData.filter(pokemon => pokemon.name.toLowerCase().includes(term.toLowerCase()))
+}
+
+// Add event listener to Search Form
+pokeForm.addEventListener("input", event => {
+  pokeList.innerHTML = ``
+  
+  let term = event.target.value
+  searchedPokemonData = fuzzySearch(term)
+
+  if (searchedPokemonData.length < 1) {
+    return (pokeList.innerHTML = `<p class="center-text">No Pokemon yo!</p>`)
+  } else {
+    return (searchedPokemons = addPokemons(searchedPokemonData))
+  }
+});
