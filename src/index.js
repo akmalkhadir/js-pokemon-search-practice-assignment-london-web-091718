@@ -55,14 +55,9 @@ pokeForm.addEventListener("input", event => {
 document.querySelector('#pokemon-container').addEventListener("click", event => {
   console.log(event)
   console.log(event.target)
-  clicked = event.target
-
-  if (clicked instanceof HTMLImageElement) {
-    let thePokemon = pokemonData.find(pokemon => pokemon.id == clicked.id)
-    if (clicked.src === thePokemon.sprites.front) {
-      clicked.src = thePokemon.sprites.back
-    } else {
-      clicked.src = thePokemon.sprites.front
-    }
+  clickedImage = event.target
+  if (clickedImage instanceof HTMLImageElement) {
+    let thePokemon = pokemonData.find(pokemon => pokemon.id == clickedImage.id)
+    clickedImage.src = clickedImage.src === thePokemon.sprites.front ? thePokemon.sprites.back : thePokemon.sprites.front
   }
 })
